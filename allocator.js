@@ -23,8 +23,9 @@ class Allocator {
     }
 
     release(num){
-        if(num < 1 || num > max_value || this.available_ids.includes(num)){
+        if(num < 1 || num > this.max_value || this.available_ids.includes(num)){
             console.error('Cannot release ID');
+            return this.available_ids;
         }else{
             this.available_ids.push(num);
             console.log('ID released!');
@@ -38,8 +39,18 @@ let a = new Allocator(10);
 console.log(`Max Value of Allocator: ${a.max_value}`);
 console.log(`Latest available id: ${a.current_id}`);
 
-for(let i = 1; i <= 10; i++){
+for(let i = 1; i <= 12; i++){
     console.log(`ID Allocated: ${a.allocate()}`);
 }
 
+console.log(`Released IDs: ${a.release(1)}`);
+console.log(`Released IDs: ${a.release(10)}`);
+console.log(`Released IDs: ${a.release(5)}`);
+console.log(`Released IDs: ${a.release(20)}`);
+console.log(`Released IDs: ${a.release(3)}`);
 
+for(let i = 1; i <= 2; i++){
+    console.log(`ID Allocated: ${a.allocate()}`);
+}
+
+console.log(`Released IDs: ${a.release(20)}`);
